@@ -53,6 +53,7 @@
     /* Spacing */
     --spacing-base: 1rem;
     --spacing-base-half: 0.5rem;
+    --spacing-base-quarter: 0.25rem;
     --border-radius-sm: 0.25rem;
     --border-radius: 0.5rem;
     --border-radius-md: 0.75rem;
@@ -222,7 +223,7 @@ a[target="_blank"]:after {
 }
 
 small {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     opacity: 0.85;
 }
 
@@ -373,8 +374,8 @@ select,
 textarea {
     display: block;
     width: 100%;
-    margin-bottom: var(--spacing-base);
-    padding: calc(var(--spacing-base) * var(--input-padding-factor));
+    margin-bottom: var(--spacing-base-quarter);
+    padding: calc(var(--spacing-base-quarter) * var(--input-padding-factor));
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-md);
     background-color: var(--body-bg);
