@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" color-scheme="light">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fire Planner</title>
+        <link rel="icon" href="assets/favicon.png" type="image/png">
+        <link rel="stylesheet" href="classless.min.css">
+    </head>
+    <body> 
+        <header>
+            <h1>FIRE Planner</h1>
+            <p>A simple tool for calculating personal finances.</p>
+            <details>
+                <summary><b>What is FIRE?</b> Why Fire Planner?</summary>
+                <p>
+                    FIRE stands for Financial Independence, Retire Early.  
+                    While you may or may not want to retire early, 
+                    it can be helpful to know where you stand financially.  <br>
+                    Ironically, by paying a little more attention to your finances, 
+                    you may find that you can have freedom from your finances.
+                </p>
+                <p>
+                    FIRE is a movement that encourages people to save and invest aggressively in order to achieve financial independence. 
+                    Key components are living within your means, saving a large percentage of your income, and investing wisely.
+                    The goal is to have enough savings and investments to cover your living expenses without relying on a traditional job.
+                </p>
+            </details>  
+        </header>
+        <main style="display: flex; flex-wrap: wrap;">
+            <section>
+                <h3>Financial Data</h3>
+                <form>
+                    <div>
+                        <label for="age-input">Current Age</label>
+                        <input type="number" id="age-input" value="35">
+                        <small>Enter your age in years</small>
+                    </div>
+
+                    <label for="income-input">Annual Income</label>
+                    <input type="number" id="income-input" placeholder="enter your income">
+
+                    <label for="income-tax-rate">Income Tax Rate</label>
+                    <output for="income-tax-rate" id="income-tax-rate-output">30%</output>
+                    <input type="range" id="income-tax-rate" min="0" max="50" step="0.5" value="30">
+                    <script>
+                        const incomeTaxRate = document.getElementById('income-tax-rate');
+                        const incomeTaxRateOutput = document.getElementById('income-tax-rate-output');
+                        incomeTaxRate.addEventListener('input', function() {
+                            incomeTaxRateOutput.value = `${incomeTaxRate.value}%`;
+                        });
+                    </script>
+                    
+                    <label for="monthly-expenses-input">Monthly Recurring Expenses:</label>
+                    <small> (like rent, mortgage, groceries, etc.) </small>
+                    <input type="number" id="monthly-expenses-input">
+
+                    <label for="annual-expenses-input">Annual Expenses</label>
+                    <small> (like an annual vacation) </small>
+                    <input type="number" id="annual-expenses-input">
+
+                    <h5>Savings</h5>
+                    <label for="savings">Non-interest bearing savings</label>
+                    <input type="number" id="savings" >
+                        <small> (like cash in a checking account) </small>
+                    </input>
+
+                    <label for="savings">Interest bearing savings <br>
+
+                        <small> (like cash in a high yield savings account) </small>
+                    </label>
+                    <input type="number" id="savings" >
+                    
+                    <button type="submit">Calculate</button>
+                </form>
+            </section>
+            <section>
+                <h3>Results</h3>
+                <p id="result-text"></p>
+                
+            </section>
+        </main>
+        <footer>
+            <p>Created by <a href="https://github.com/readlang/"> Read</a><br> <small> For sound financial advice, please consult someone else.</small> </p>
+        </footer>
+        <script src="script.js"></script>
+    </body>
+</html>
