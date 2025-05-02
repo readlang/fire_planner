@@ -45,7 +45,7 @@
     --font-family-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --font-size-base: 1rem;
-    --line-height-base: 1.6;
+    --line-height-base: 1.2;
     --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-bold: 700;
@@ -54,6 +54,7 @@
     --spacing-base: 1rem;
     --spacing-base-half: 0.5rem;
     --spacing-base-quarter: 0.25rem;
+    --spacing-base-eighth: 0.125rem;
     --border-radius-sm: 0.25rem;
     --border-radius: 0.5rem;
     --border-radius-md: 0.75rem;
@@ -344,7 +345,8 @@ form, fieldset {
 }
 
 form > div {
-    margin-bottom: var(--spacing-base);
+    margin-bottom: calc( var(--spacing-base) * 1.5);
+    /* border: .5px solid #ebebeb;     */
 }
 
 input, select, textarea, button {
@@ -374,8 +376,8 @@ select,
 textarea {
     display: block;
     width: 100%;
-    margin-bottom: var(--spacing-base-quarter);
-    padding: calc(var(--spacing-base-quarter) * var(--input-padding-factor));
+    margin-bottom: var(--spacing-base-eighth);
+    padding: calc(var(--spacing-base-half) * var(--input-padding-factor));
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-md);
     background-color: var(--body-bg);
@@ -494,7 +496,7 @@ textarea {
 
 label {
     display: block;
-    margin-bottom: calc(var(--spacing-base) * 0.5);
+    margin-bottom: calc(var(--spacing-base-half) * 0.5);
     font-weight: var(--font-weight-medium);
 }
 

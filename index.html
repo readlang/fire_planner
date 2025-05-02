@@ -33,50 +33,78 @@
                 <form>
                     <div>
                         <label for="age-input">Current Age</label>
-                        <input type="number" id="age-input" value="35">
+                        <input id="age-input" type="number" value="40">
                         <small>Enter your age in years</small>
                     </div>
 
-                    <label for="income-input">Annual Income</label>
-                    <input type="number" id="income-input" placeholder="enter your income">
+                    <h5>Income & Expenses</h5>
 
-                    <label for="income-tax-rate">Income Tax Rate</label>
-                    <output for="income-tax-rate" id="income-tax-rate-output">30%</output>
-                    <input type="range" id="income-tax-rate" min="0" max="50" step="0.5" value="30">
-                    <script>
-                        const incomeTaxRate = document.getElementById('income-tax-rate');
-                        const incomeTaxRateOutput = document.getElementById('income-tax-rate-output');
-                        incomeTaxRate.addEventListener('input', function() {
-                            incomeTaxRateOutput.value = `${incomeTaxRate.value}%`;
-                        });
-                    </script>
+                    <div>
+                        <label for="income-input">Annual Income</label>
+                        <input id="income-input" type="number" value="75000">
+                        <small>Enter your pre-tax income</small>
+                    </div>
+
+                    <div>
+                        <label for="tax-rate-input">Income Tax Rate</label>
+                        <output for="tax-rate-input" id="tax-rate-output">28%</output>
+                        <input id="tax-rate-input" type="range" value="30" min="0" max="50" step="0.5">
+                        <small>Enter your tax rate, combined federal & state</small> 
+                    </div>
+
+                    <div> 
+                        <label for="monthly-expenses-input">Monthly Recurring Expenses:</label>
+                        <input id="monthly-expenses-input" type="number" value="4000">
+                        <small>Monthly expenses like rent, mortgage, groceries, etc.</small>
+                    </div>
+
+                    <div>
+                        <label for="annual-expenses-input">Annual Expenses</label>
+                        <input id="annual-expenses-input" type="number" value="8000">
+                        <small>Annual expenses like a yearly vacation</small>
+                    </div>
+
+                    <h5>Savings & Investments</h5>
+
+                    <div>
+                        <label for="savings-input">Non-interest bearing savings</label>
+                        <input id="savings-input" type="number" value="10000">
+                        <small>Savings such as cash in a checking account</small>
+                    </div>
                     
-                    <label for="monthly-expenses-input">Monthly Recurring Expenses:</label>
-                    <small> (like rent, mortgage, groceries, etc.) </small>
-                    <input type="number" id="monthly-expenses-input">
+                    <div>
+                        <label for="hysa-input">Interest bearing savings</label> 
+                        <input id="hysa-input" type="number" value="20000">
+                        <small>Savings such as cash in a high yield savings account</small>
+                    </div>
 
-                    <label for="annual-expenses-input">Annual Expenses</label>
-                    <small> (like an annual vacation) </small>
-                    <input type="number" id="annual-expenses-input">
+                    <div>
+                        <label for="hysa-rate-input">Bank Interest Rate</label>
+                        <output for="hysa-rate-input" id="hysa-rate-output">3.5%</output>
+                        <input id="hysa-rate-input" type="range" value="3.5" min="0" max="6" step="0.05">
+                        <small>Enter your savings account interest rate</small> 
+                    </div>
 
-                    <h5>Savings</h5>
-                    <label for="savings">Non-interest bearing savings</label>
-                    <input type="number" id="savings" >
-                        <small> (like cash in a checking account) </small>
-                    </input>
+                    <div>
+                        <label for="investments-input">Investments</label> 
+                        <input id="investments-input" type="number" value="50000">
+                        <small>Investments in the stock market, mutual funds, etc.</small>
+                    </div>
 
-                    <label for="savings">Interest bearing savings <br>
-
-                        <small> (like cash in a high yield savings account) </small>
-                    </label>
-                    <input type="number" id="savings" >
+                    <div>
+                        <label for="investments-rate-input">Investments Ave. Return Rate</label>
+                        <output for="investments-rate-input" id="investments-rate-output">7%</output>
+                        <input id="investments-rate-input" type="range" value="7" min="2" max="12" step="0.5">
+                        <small>Enter your after-inflation rate of return</small> <br>
+                        <small>The stock market inflation-adjusted average is about 7% </small> 
+                    </div>
                     
                     <button type="submit">Calculate</button>
                 </form>
             </section>
-            <section>
+            <section style="flex: 1; min-width: 300px;">
                 <h3>Results</h3>
-                <p id="result-text"></p>
+                <p id="result-text">These are results</p>
                 
             </section>
         </main>
