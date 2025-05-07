@@ -31,10 +31,22 @@
             <section>
                 <h3>Financial Data</h3>
                 <form>
+                    <h5>Age Data</h5>
                     <div>
                         <label for="age-input">Current Age</label>
-                        <input id="age-input" type="number" value="40">
-                        <small>Enter your age in years</small>
+                        <input id="age-input" type="number" value=40>
+                        <small>Enter your age in years</small> 
+                    </div>
+
+                    <div>
+                        <label for="retirement-age-input">Desired Retirement Age</label>
+                        <input id="retirement-age-input" type="number" value=60>
+                        <small>Enter your desired retirement age in years</small>
+                    </div>
+                    <div>
+                        <label for="graph-end-age-input">Graph End Age</label>
+                        <input id="graph-end-age-input" type="number" value=95>
+                        <small>Enter the max age shown on the graph</small>
                     </div>
 
                     <h5>Income & Expenses</h5>
@@ -48,7 +60,7 @@
                     <div>
                         <label for="tax-rate-input">Income Tax Rate</label>
                         <output for="tax-rate-input" id="tax-rate-output">28%</output>
-                        <input id="tax-rate-input" type="range" value="30" min="0" max="50" step="0.5">
+                        <input id="tax-rate-input" type="range" value="28" min="0" max="50" step="0.5">
                         <small>Enter your tax rate, combined federal & state</small> 
                     </div>
 
@@ -99,12 +111,12 @@
                         <small>The stock market inflation-adjusted average is about 7% </small> 
                     </div>
                     
-                    <button type="submit">Calculate</button>
+                    <button id="calculate" type="submit">Calculate</button>
+                    <button class="warning" type="submit">Reset</button>
                 </form>
             </section>
             <section style="flex: 1; min-width: 300px;">
-                <h3>Results</h3>
-                <p id="result-text">These are results</p>
+                <h3>Results</h3> 
 
                 <div>
                     <canvas id="myChart"></canvas>
