@@ -1,75 +1,68 @@
 
-let ud = {
-    "age": 41,
-    "ageRetirement": 60,
-    "ageGraphEnd": 50,
-    "income": 75000,
-    "taxRate": 28,
-    "monthlyExpenses": 4000,
-    "annualExpenses": 8000,
-    "savings": 10000,
-    "hysa": 20000,
-    "hysaRate": 3.5,
-    "investments": 50000,
-    "investmentsRate": 7
+let financialData = {
+    ages: [],
+    savings: [],
+    hysa: [],
+    investments: [],
+    totals: [],
+};
+
+function round(number) {
+    return Math.round((number + Number.EPSILON) * 100) / 100
 }
-
-
-
-let ageYears;
-let financialTotals;
 
 function setValues() {
-    ageYears = [];
-    financialTotals = [];
-        
-    for (let i = userData.age; i <= userData.ageGraphEnd; i++) {
-        ageYears.push(i);
-    }
-    // console.log(ageYears);
-
-    const startingTotal = userData.savings + userData.hysa + userData.investments;
-    financialTotals.push(startingTotal);
-
-    for (let i = userData.age; i < userData.ageGraphEnd; i++) {
-        financialTotals.push(
-            financialTotals[financialTotals.length - 1] 
-            + userData.income * (1 - userData.taxRate * .01) 
-            - (userData.annualExpenses + userData.monthlyExpenses * 12) 
-        )
-    }
-    console.log(financialTotals);
-}
-
-function refreshData() {
-    setValues();
-    chartGraphic.data.labels = ageYears;
-    chartGraphic.data.datasets[0].data = financialTotals;
-    chartGraphic.update();
-    console.log(chartGraphic);
-}
     
+    financialData = {
+        ages: [userData.age],
+        savings: [userData.savings],
+        hysa: [userData.hysa],
+        investments: [userData.investments],
+        totals: [userData.savings + userData.hysa + userData.investments]
+    };
 
+    for (let age = userData.age + 1, i=1; age <= userData.ageGraphEnd; age++, i++) {
+
+        const netIncome = userData.income * (1 - (userData.taxRate * 0.01)) - (userData.annualExpenses + userData.monthlyExpenses * 12);
+        const percentToInvest = 0.60;
+        
+        const newSavings = round(financialData.savings[i-1]);
+        const newHysa = round(financialData.hysa[i-1] * (1 + userData.hysaRate * .01) + ((1 - percentToInvest) * netIncome));
+        const newInvestments = round(financialData.investments[i-1] * (1 + userData.investmentsRate * .01) + (percentToInvest * netIncome));
+        const newTotal = round(newSavings + newHysa + newInvestments);
+
+        financialData.ages.push(age)
+        financialData.savings.push(newSavings)
+        financialData.hysa.push(newHysa)
+        financialData.investments.push(newInvestments)
+        financialData.totals.push(newTotal)
+    }
+    console.log(financialData);
+}
+
+// set the initial values for financialData
 setValues();
 
+// to refresh the values and chart on Calculate button press
+function refreshData() {
+    setValues();
+    chartGraphic.data.labels = financialData.ages;
+    chartGraphic.data.datasets[0].data = financialData.totals;
+    chartGraphic.update();
+}
 
 // Chartjs graphic
 const ctx = document.getElementById('myChart');
 const chartGraphic = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: ageYears,
+        labels: financialData.ages,
         datasets: [
             {
                 label: 'Total Assets',
-                data: financialTotals,
+                data: financialData.totals,
                 borderWidth: 1
             },
-            // {
-            //     label: 'second dataset',
-            //     data: [2, 3, 5, 12, 19, 3],
-            //     borderWidth: 2
-            // }
         ]
     },
     options: {
