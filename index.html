@@ -26,12 +26,11 @@
                     The goal is to have enough savings and investments to cover your living expenses without relying on a traditional job.
                 </p>
             </details>  
+            <br>
         </header>
-        <main style="display: flex; flex-wrap: wrap;">
-            <section>
-                <h3>Financial Data</h3>
-                <form>
-                    <h5>Age Data</h5>
+        <main style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <form style="margin-bottom: calc(var(--spacing-base) * 2);">
+                    <h5>Duration</h5>
                     <div>
                         <label for="age-input">Current Age</label>
                         <input id="age-input" type="number" value=41>
@@ -39,15 +38,16 @@
                     </div>
 
                     <div>
-                        <label for="retirement-age-input">Desired Retirement Age</label>
+                        <label for="retirement-age-input">Retirement Age</label>
                         <input id="retirement-age-input" type="number" value=60>
                         <small>Enter your desired retirement age in years</small>
                     </div>
                     <div>
-                        <label for="graph-end-age-input">Graph End Age</label>
+                        <label for="graph-end-age-input">Max Age</label>
                         <input id="graph-end-age-input" type="number" value=50>
                         <small>Enter the max age shown on the graph</small>
                     </div>
+                    <br>
 
                     <h5>Income & Expenses</h5>
 
@@ -75,23 +75,24 @@
                         <input id="annual-expenses-input" type="number" value="8000">
                         <small>Annual expenses like a yearly vacation</small>
                     </div>
+                    <br>
 
-                    <h5>Savings & Investments</h5>
+                    <h5>Assets</h5>
 
                     <div>
-                        <label for="savings-input">Non-interest bearing savings</label>
+                        <label for="savings-input">Cash</label>
                         <input id="savings-input" type="number" value="10000">
-                        <small>Savings such as cash in a checking account</small>
+                        <small>Non-interest bearing savings</small>
                     </div>
                     
                     <div>
-                        <label for="hysa-input">Interest bearing savings</label> 
+                        <label for="hysa-input">Interest-bearing savings</label> 
                         <input id="hysa-input" type="number" value="20000">
                         <small>Savings such as cash in a high yield savings account</small>
                     </div>
 
                     <div>
-                        <label for="hysa-rate-input">Bank Interest Rate</label>
+                        <label for="hysa-rate-input">Savings Interest Rate</label>
                         <output for="hysa-rate-input" id="hysa-rate-output">3.5%</output>
                         <input id="hysa-rate-input" type="range" value="3.5" min="0" max="6" step="0.05">
                         <small>Enter your savings account interest rate</small> 
@@ -108,15 +109,26 @@
                         <output for="investments-rate-input" id="investments-rate-output">7%</output>
                         <input id="investments-rate-input" type="range" value="7" min="2" max="12" step="0.5">
                         <small>Enter your after-inflation rate of return</small> <br>
-                        <small>The stock market inflation-adjusted average is about 7% </small> 
+                        <small>Stock market inflation-adjusted average is about 7% </small> 
+                    </div>
+
+                    <br>
+
+                    <h5>Retirement Spending</h5>
+
+                    <div>
+                        <label for="withdrawal-rate-input">Annual Withdrawal Rate</label>
+                        <output for="withdrawal-rate-input" id="withdrawal-rate-output">4.0%</output>
+                        <input id="withdrawal-rate-input" type="range" value="4.0" min="3.5" max="6" step="0.5">
+                        <small>Enter your annual withdrawal rate in retirement</small> <br>
+                        <small>FIRE standard is 4%. Higher numbers have more risk.</small> 
                     </div>
                     
                     <button id="calculate" type="submit">Calculate</button>
                     <button class="warning" type="submit">Reset</button>
                 </form>
-            </section>
-            <section style="flex: 1; min-width: 300px;">
-                <h3>Results</h3> 
+            <section style="flex: 1; min-width: 300px; box-shadow: var(--shadow-md);">
+                <h5>Results</h5> 
 
                 <div>
                     <canvas id="myChart"></canvas>
