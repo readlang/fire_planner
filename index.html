@@ -29,7 +29,7 @@
             <br>
         </header>
         <main style="display: flex; flex-wrap: wrap; gap: 10px;">
-            <form style="margin-bottom: calc(var(--spacing-base) * 2);">
+            <form id="input-form" style="margin-bottom: calc(var(--spacing-base) * 2);">
 
                 <h5>Duration</h5>                
                 <div>
@@ -75,19 +75,19 @@
 
                 <h5>Assets</h5>
                 <div>
-                    <label for="savings-input">Cash</label>
-                    <input id="savings-input" type="number" value="10000">
-                    <small>Non-interest bearing savings</small>
+                    <label for="cash-input">Cash</label>
+                    <input id="cash-input" type="number" value="10000">
+                    <small>Non-interest bearing cash savings</small>
                 </div>
                 <div>
-                    <label for="hysa-input">Interest-bearing savings</label> 
-                    <input id="hysa-input" type="number" value="20000">
+                    <label for="savings-input">Interest-bearing Savings</label> 
+                    <input id="savings-input" type="number" value="20000">
                     <small>Savings such as cash in a high yield savings account</small>
                 </div>
                 <div>
-                    <label for="hysa-rate-input">Savings Interest Rate</label>
-                    <output for="hysa-rate-input" id="hysa-rate-output">3.5%</output>
-                    <input id="hysa-rate-input" type="range" value="3.5" min="0" max="6" step="0.05">
+                    <label for="savings-rate-input">Savings Interest Rate</label>
+                    <output for="savings-rate-input" id="savings-rate-output">3.5%</output>
+                    <input id="savings-rate-input" type="range" value="3.5" min="0" max="6" step="0.05">
                     <small>Enter your savings interest rate</small> 
                 </div>
                 <div>
@@ -103,9 +103,11 @@
                     <small>Stock market inflation-adjusted average is about 7% </small> 
                 </div>
                 <div>
-                    <label>Asset Mix</label>
+                    <label>Asset Mix %</label>
                     <p>
-                        Cash <span id="cash-percent">15%</span> Savings <span id="savings-percent">15%</span> Investments <span id="investment-percent">15%</span>
+                        Cash: <output id="cash-percent">-%</output> &nbsp; 
+                        Sav: <output id="savings-percent">-%</output> &nbsp;
+                        Inv: <output id="investment-percent">-%</output>
                     </p>
                 </div>
                 <br>
@@ -114,7 +116,7 @@
                 <div>
                     <label for="withdrawal-rate-input">Annual Withdrawal Rate</label>
                     <output for="withdrawal-rate-input" id="withdrawal-rate-output">4.0%</output>
-                    <input id="withdrawal-rate-input" type="range" value="4.0" min="3.5" max="6" step="0.5">
+                    <input id="withdrawal-rate-input" type="range" value="4.0" min="3.5" max="7" step="0.5">
                     <small>Enter your annual withdrawal rate in retirement</small> <br>
                     <small>FIRE standard is 4%. Higher numbers have more risk.</small> 
                 </div>
