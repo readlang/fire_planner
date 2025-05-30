@@ -24,15 +24,18 @@ let userData: UserData = {
     age: 40,
     ageRetirement: 60,
     ageGraphEnd: 80,
-    income: 75000,
-    taxRate: 28,
+
+    income: 80000,
+    taxRate: 26,
     monthlyExpenses: 4000,
     annualExpenses: 8000,
+
     cash: 10000,
     savings: 20000,
     savingsRate: 3.5,
     investments: 50000,
     investmentsRate: 7,
+
     withdrawalRate: 4,
     assetMix: {
         cash: 0.125,
@@ -96,6 +99,14 @@ annualExpensesInput.addEventListener('input', () => {
     annualExpensesInput.value = userData.annualExpenses.toLocaleString();
 });
 
+const netIncomeOutput = document.getElementById("net-income") as HTMLOutputElement;
+const entireForm = document.getElementById("input-form") as HTMLInputElement;
+entireForm.addEventListener("input", () => {
+    let netIncome: number = (userData.income * (1 - userData.taxRate * 0.01)) - (userData.annualExpenses + (userData.monthlyExpenses * 12));
+    netIncomeOutput.value = ` $ ${netIncome.toLocaleString()}`;
+    (netIncome < 0) ? netIncomeOutput.style.color = "red" : netIncomeOutput.style.color = "black";
+})
+
 // ASSETS
 const cashInput = document.getElementById('cash-input') as HTMLInputElement;
 userData.cash = parseInt(removeNonNumeric(cashInput.value));
@@ -139,7 +150,6 @@ const cashPercent = document.getElementById("cash-percent") as HTMLOutputElement
 const savingsPercent = document.getElementById("savings-percent") as HTMLOutputElement;
 const investmentPercent = document.getElementById("investment-percent") as HTMLOutputElement;
 
-const entireForm = document.getElementById("input-form") as HTMLInputElement;
 entireForm.addEventListener("input", () => {
     setAssetMix()
     cashPercent.value = `${round(1, userData.assetMix.cash * 100)}%`
@@ -220,19 +230,21 @@ function setValues() {
         totals: [userData.cash + userData.savings + userData.investments]
     };
 
+    // this sets every subsequent year values (after the initial year) in the arrays
     for (let age: number = userData.age + 1, i = 1; age <= userData.ageGraphEnd; age++, i++) {
+        let takeHomePay = userData.income * (1 - userData.taxRate * 0.01)
 
-        const netIncome = (userData.income * (1 - userData.taxRate * 0.01)) - (userData.annualExpenses + (userData.monthlyExpenses * 12));
+        if (age > userData.ageRetirement) takeHomePay = 0;
+
+        // annual net income = annual takeHomePay - total annual expenses
+        const netIncome = takeHomePay - (userData.annualExpenses + (userData.monthlyExpenses * 12));
 
 
         
-        // This is a placeholder value
-        const percentToInvest = 0.60;
-        
-        const newCash = round(2, financialData.cash[i-1]);
-        const newSavings = round(2, financialData.savings[i-1] * (1 + userData.savingsRate * .01) + ((1 - percentToInvest) * netIncome));
-        const newInvestments = round(2, financialData.investments[i-1] * (1 + userData.investmentsRate * .01) + (percentToInvest * netIncome));
-        const newTotal = round(2, newCash + newSavings + newInvestments);
+        const newCash        = round(2, financialData.cash[i-1]  +  (userData.assetMix.cash * netIncome) );
+        const newSavings     = round(2, financialData.savings[i-1] * (1 + userData.savingsRate * .01) + (userData.assetMix.savings * netIncome));
+        const newInvestments = round(2, financialData.investments[i-1] * (1 + userData.investmentsRate * .01) + (userData.assetMix.investments * netIncome));
+        const newTotal       = round(2, newCash + newSavings + newInvestments);
 
         financialData.ages.push(age)
         financialData.cash.push(newCash)
@@ -247,12 +259,15 @@ function setValues() {
 setValues();
 
 /**
- * to refresh the values and chart on Calculate button press
+ * refresh the values and chart upon pressing Calculate button
  */
 function refreshData() {
     setValues();
     chartGraphic.data.labels = financialData.ages;
-    chartGraphic.data.datasets[0].data = financialData.totals;
+    chartGraphic.data.datasets[0].data = financialData.cash;
+    chartGraphic.data.datasets[1].data = financialData.savings;
+    chartGraphic.data.datasets[2].data = financialData.investments;
+    chartGraphic.data.datasets[3].data = financialData.totals;
     chartGraphic.update();
 }
 
@@ -263,21 +278,39 @@ const ctx = document.getElementById('myChart') as HTMLCanvasElement;
 if (!ctx) throw new Error("Chart element not found");
 
 const chartGraphic = new Chart(ctx, {
-    type: 'line',
+    type: 'bar',
     data: {
         labels: financialData.ages,
         datasets: [
             {
+                label: 'Cash',
+                data: financialData.cash,
+                stack: 'Stack 1'
+            },
+            {
+                label: 'Savings',
+                data: financialData.savings,
+                stack: 'Stack 1'
+            },
+            {
+                label: 'Investments',
+                data: financialData.investments,
+                stack: 'Stack 1'
+            },
+            {
                 label: 'Total Assets',
                 data: financialData.totals,
-                borderWidth: 1
+                stack: 'Stack 2',
+                type: "line"
             },
         ]
     },
     options: {
         scales: {
+            x: {stacked: true},
             y: {
-                beginAtZero: true
+                stacked: true,
+                beginAtZero: true,
             }
         }
     }

@@ -52,13 +52,13 @@
                 <h5>Income & Expenses</h5> 
                 <div>
                     <label for="income-input">Annual Income</label>
-                    <input id="income-input" type="text" value="75,000">
+                    <input id="income-input" type="text" value="80,000">
                     <small>Enter your pre-tax income</small>
                 </div>
                 <div>
                     <label for="tax-rate-input">Income Tax Rate</label>
-                    <output for="tax-rate-input" id="tax-rate-output">28%</output>
-                    <input id="tax-rate-input" type="range" value="28" min="0" max="50" step="0.5">
+                    <output for="tax-rate-input" id="tax-rate-output">26%</output>
+                    <input id="tax-rate-input" type="range" value="26" min="0" max="50" step="0.5">
                     <small>Enter your tax rate, combined federal & state</small> 
                 </div>
                 <div> 
@@ -70,6 +70,13 @@
                     <label for="annual-expenses-input">Annual Expenses</label>
                     <input id="annual-expenses-input" type="text" value="8,000">
                     <small>Annual expenses like a yearly vacation</small>
+                </div>
+                <div>
+                    <label>Annual Net Income</label>
+                    <p>
+                        Total: <output id="net-income">$ 3,200</output>
+                    </p>
+                    <small>After-tax pay minus annual & monthly expenses</small>
                 </div>
                 <br>
 
