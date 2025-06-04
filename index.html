@@ -58,7 +58,7 @@
                 <div>
                     <label for="tax-rate-input">Income Tax Rate</label>
                     <output for="tax-rate-input" id="tax-rate-output">26%</output>
-                    <input id="tax-rate-input" type="range" value="26" min="0" max="50" step="0.5">
+                    <input id="tax-rate-input" type="range" value="26" min="0" max="50" step="1">
                     <small>Enter your tax rate, combined federal & state</small> 
                 </div>
                 <div> 
@@ -116,6 +116,7 @@
                         Sav: <output id="savings-percent">-%</output> &nbsp;
                         Inv: <output id="investment-percent">-%</output>
                     </p>
+                    <small>Assets will rebalance annually to maintain this mix</small>
                 </div>
                 <br>
 
@@ -123,7 +124,7 @@
                 <div>
                     <label for="withdrawal-rate-input">Annual Withdrawal Rate</label>
                     <output for="withdrawal-rate-input" id="withdrawal-rate-output">4.0%</output>
-                    <input id="withdrawal-rate-input" type="range" value="4.0" min="3.5" max="7" step="0.5">
+                    <input id="withdrawal-rate-input" type="range" value="4.0" min="3.0" max="6" step="0.5">
                     <small>Enter your annual withdrawal rate in retirement</small> <br>
                     <small>FIRE standard is 4%. Higher numbers have more risk.</small> 
                 </div>
@@ -144,8 +145,6 @@
         <footer>
             <p>Created by <a href="https://github.com/readlang/"> Readlang</a><br> <small> For financial advice, please consult a trusted financial advisor or CFP.</small> </p>
         </footer>
-        <!-- <script src="./js/script.js"></script> -->
-        <!-- <script src="./js/logic.js"></script> -->
         <script Type="module" src="./js/index.js"></script>
     </body>
 </html>

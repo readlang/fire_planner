@@ -56,6 +56,8 @@ function removeNonNumeric(inputString: string): string {
   return modifiedStr
 }
 
+// ---- HTML FORM input control starts here (app logic follows after) ----
+
 // DURATION Age Data inputs
 const ageInput = document.getElementById('age-input') as HTMLInputElement;
 userData.age = parseInt(ageInput.value);
@@ -205,6 +207,7 @@ interface FinancialData {
     savings: number[];
     investments: number[];
     totals: number[];
+    fireThreshold: number[];
 }
 
 let financialData: FinancialData = {
@@ -213,6 +216,7 @@ let financialData: FinancialData = {
     savings: [],
     investments: [],
     totals: [],
+    fireThreshold: [],
 };
 
 /**
@@ -221,36 +225,49 @@ let financialData: FinancialData = {
  */
 function setValues() {
     setAssetMix();
+
+    const fireThreshold = round(2, (userData.annualExpenses + userData.monthlyExpenses * 12) /  (userData.withdrawalRate * .01))
+
     // this sets the initial year values in each array
     financialData = {
         ages: [userData.age],
         cash: [userData.cash],
         savings: [userData.savings],
         investments: [userData.investments],
-        totals: [userData.cash + userData.savings + userData.investments]
+        totals: [userData.cash + userData.savings + userData.investments],
+        fireThreshold: [fireThreshold]
     };
 
     // this sets every subsequent year values (after the initial year) in the arrays
     for (let age: number = userData.age + 1, i = 1; age <= userData.ageGraphEnd; age++, i++) {
-        let takeHomePay = userData.income * (1 - userData.taxRate * 0.01)
-
-        if (age > userData.ageRetirement) takeHomePay = 0;
-
-        // annual net income = annual takeHomePay - total annual expenses
-        const netIncome = takeHomePay - (userData.annualExpenses + (userData.monthlyExpenses * 12));
-
-
         
-        const newCash        = round(2, financialData.cash[i-1]  +  (userData.assetMix.cash * netIncome) );
-        const newSavings     = round(2, financialData.savings[i-1] * (1 + userData.savingsRate * .01) + (userData.assetMix.savings * netIncome));
-        const newInvestments = round(2, financialData.investments[i-1] * (1 + userData.investmentsRate * .01) + (userData.assetMix.investments * netIncome));
-        const newTotal       = round(2, newCash + newSavings + newInvestments);
+        let takeHomePay: number;
+            
+        if (age <= userData.ageRetirement) {
+            takeHomePay = userData.income * (1 - userData.taxRate * 0.01)   // aka after-tax income
+        } else {
+            takeHomePay = 0;
+        }
+
+        // netIncome aka income after expenses - will be negative after retirement
+        const netIncome = takeHomePay - (userData.annualExpenses + (userData.monthlyExpenses * 12));   
+        
+        const newTotal       = round(2, 
+            financialData.cash[i-1] * (1) + 
+            financialData.savings[i-1] * (1 + userData.savingsRate * .01) + 
+            financialData.investments[i-1] * (1 + userData.investmentsRate * .01) +
+            netIncome
+        );
+        const newCash        = round(2, (newTotal * userData.assetMix.cash) );
+        const newSavings     = round(2, (newTotal * userData.assetMix.savings) );
+        const newInvestments = round(2, (newTotal * userData.assetMix.investments) );
 
         financialData.ages.push(age)
         financialData.cash.push(newCash)
         financialData.savings.push(newSavings)
         financialData.investments.push(newInvestments)
         financialData.totals.push(newTotal)
+        financialData.fireThreshold.push(fireThreshold)
     }
     console.log(financialData);
 }
@@ -268,6 +285,7 @@ function refreshData() {
     chartGraphic.data.datasets[1].data = financialData.savings;
     chartGraphic.data.datasets[2].data = financialData.investments;
     chartGraphic.data.datasets[3].data = financialData.totals;
+    chartGraphic.data.datasets[4].data = financialData.fireThreshold;
     chartGraphic.update();
 }
 
@@ -276,6 +294,19 @@ declare const Chart: any;
 
 const ctx = document.getElementById('myChart') as HTMLCanvasElement;
 if (!ctx) throw new Error("Chart element not found");
+
+const footer = (tooltipItems: Array<any>) => {
+    if (tooltipItems[3].raw) {
+        console.log(tooltipItems[3].raw);
+        let totalAnnualExpenses = userData.annualExpenses + (userData.monthlyExpenses * 12)
+        if ( (tooltipItems[3].raw * (userData.withdrawalRate * 0.01)) > totalAnnualExpenses) 
+            return 'FIRED'
+        else
+            return 'not FIRED'
+    } else {
+        return 'Error'
+    }
+};
 
 const chartGraphic = new Chart(ctx, {
     type: 'bar',
@@ -303,6 +334,14 @@ const chartGraphic = new Chart(ctx, {
                 stack: 'Stack 2',
                 type: "line"
             },
+            {
+                label: 'Fire Threshold',
+                data: financialData.fireThreshold,
+                type: "line",
+                // borderDash: [5,3],
+                pointStyle: false,
+                borderWidth: 1,
+            }
         ]
     },
     options: {
@@ -311,6 +350,17 @@ const chartGraphic = new Chart(ctx, {
             y: {
                 stacked: true,
                 beginAtZero: true,
+            }
+        },
+        interaction: {
+            intersect: false,
+            mode: 'index',
+        },
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    footer: footer,
+                }
             }
         }
     }
