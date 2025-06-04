@@ -28,109 +28,115 @@
             </details>  
             <br>
         </header>
-        <main style="display: flex; flex-wrap: wrap; gap: 10px;">
-            <form id="input-form" style="margin-bottom: calc(var(--spacing-base) * 2);">
+        <!-- <main style="display: flex; flex-wrap: wrap; gap: 10px;"> -->
+        <main>
+            <form id="input-form" style="display: flex; flex-wrap: wrap; gap: 20px;">
 
-                <h5>Duration</h5>                
-                <div>
-                    <label for="age-input">Current Age</label>
-                    <input id="age-input" type="number" value=40>
-                    <small>Enter your age in years</small> 
-                </div>
-                <div>
-                    <label for="retirement-age-input">Retirement Age</label>
-                    <input id="retirement-age-input" type="number" value=60>
-                    <small>Enter your desired retirement age in years</small>
-                </div>
-                <div>
-                    <label for="graph-end-age-input">Max Age</label>
-                    <input id="graph-end-age-input" type="number" value=80>
-                    <small>Enter the max age shown on the graph</small>
-                </div>
-                <br>
+                <form-section>
+                    <h5>Income & Expenses</h5> 
+                    <div>
+                        <label for="income-input">Annual Income</label>
+                        <input id="income-input" type="text" value="80,000">
+                        <small>Enter your pre-tax income</small>
+                    </div>
+                    <div>
+                        <label for="tax-rate-input">Income Tax Rate</label>
+                        <output for="tax-rate-input" id="tax-rate-output">26%</output>
+                        <input id="tax-rate-input" type="range" value="26" min="0" max="50" step="1">
+                        <small>Enter your tax rate, combined federal & state</small> 
+                    </div>
+                    <div> 
+                        <label for="monthly-expenses-input">Monthly Recurring Expenses:</label>
+                        <input id="monthly-expenses-input" type="text" value="4,000">
+                        <small>Monthly expenses like rent, groceries, etc.</small>
+                    </div>
+                    <div>
+                        <label for="annual-expenses-input">Annual Expenses</label>
+                        <input id="annual-expenses-input" type="text" value="8,000">
+                        <small>Annual expenses like a yearly vacation</small>
+                    </div>
+                    <div>
+                        <label>Annual Net Income</label>
+                        <p>
+                            Total: <output id="net-income">$ 3,200</output>
+                        </p>
+                        <small>After-tax pay minus total expenses</small>
+                    </div>
+                </form-section>
 
-                <h5>Income & Expenses</h5> 
-                <div>
-                    <label for="income-input">Annual Income</label>
-                    <input id="income-input" type="text" value="80,000">
-                    <small>Enter your pre-tax income</small>
-                </div>
-                <div>
-                    <label for="tax-rate-input">Income Tax Rate</label>
-                    <output for="tax-rate-input" id="tax-rate-output">26%</output>
-                    <input id="tax-rate-input" type="range" value="26" min="0" max="50" step="1">
-                    <small>Enter your tax rate, combined federal & state</small> 
-                </div>
-                <div> 
-                    <label for="monthly-expenses-input">Monthly Recurring Expenses:</label>
-                    <input id="monthly-expenses-input" type="text" value="4,000">
-                    <small>Monthly expenses like rent, mortgage, groceries, etc.</small>
-                </div>
-                <div>
-                    <label for="annual-expenses-input">Annual Expenses</label>
-                    <input id="annual-expenses-input" type="text" value="8,000">
-                    <small>Annual expenses like a yearly vacation</small>
-                </div>
-                <div>
-                    <label>Annual Net Income</label>
-                    <p>
-                        Total: <output id="net-income">$ 3,200</output>
-                    </p>
-                    <small>After-tax pay minus annual & monthly expenses</small>
-                </div>
-                <br>
+                <form-section>
+                    <h5>Assets</h5>
+                    <div>
+                        <label for="cash-input">Cash</label>
+                        <input id="cash-input" type="text" value="10,000">
+                        <small>Non-interest bearing cash savings</small>
+                    </div>
+                    <div>
+                        <label for="savings-input">Interest-bearing Savings</label> 
+                        <input id="savings-input" type="text" value="20,000">
+                        <small>Savings such as cash in a high yield savings acct.</small>
+                    </div>
+                    <div>
+                        <label for="savings-rate-input">Savings Interest Rate</label>
+                        <output for="savings-rate-input" id="savings-rate-output">3.5%</output>
+                        <input id="savings-rate-input" type="range" value="3.5" min="0" max="6" step="0.05">
+                        <small>Enter your savings interest rate</small> 
+                    </div>
+                    <div>
+                        <label for="investments-input">Investments</label> 
+                        <input id="investments-input" type="text" value="50,000">
+                        <small>Investments in stocks, mutual funds, etc.</small>
+                    </div>
+                    <div>
+                        <label for="investments-rate-input">Investments Ave. Return Rate</label>
+                        <output for="investments-rate-input" id="investments-rate-output">7%</output>
+                        <input id="investments-rate-input" type="range" value="7" min="2" max="12" step="0.5">
+                        <small>Enter your after-inflation rate of return</small> <br>
+                        <small>Stock market inflation-adjusted ave. is about 7% </small> 
+                    </div>
+                    <div>
+                        <label>Asset Mix %</label>
+                        <p>
+                            Cash: <output id="cash-percent">-%</output> &nbsp; 
+                            Sav: <output id="savings-percent">-%</output> &nbsp;
+                            Inv: <output id="investment-percent">-%</output>
+                        </p>
+                        <small>Assets will rebalance annually to maintain this mix</small>
+                    </div>
+                </form-section>
 
-                <h5>Assets</h5>
-                <div>
-                    <label for="cash-input">Cash</label>
-                    <input id="cash-input" type="text" value="10,000">
-                    <small>Non-interest bearing cash savings</small>
-                </div>
-                <div>
-                    <label for="savings-input">Interest-bearing Savings</label> 
-                    <input id="savings-input" type="text" value="20,000">
-                    <small>Savings such as cash in a high yield savings account</small>
-                </div>
-                <div>
-                    <label for="savings-rate-input">Savings Interest Rate</label>
-                    <output for="savings-rate-input" id="savings-rate-output">3.5%</output>
-                    <input id="savings-rate-input" type="range" value="3.5" min="0" max="6" step="0.05">
-                    <small>Enter your savings interest rate</small> 
-                </div>
-                <div>
-                    <label for="investments-input">Investments</label> 
-                    <input id="investments-input" type="text" value="50,000">
-                    <small>Investments in the stock market, mutual funds, etc.</small>
-                </div>
-                <div>
-                    <label for="investments-rate-input">Investments Ave. Return Rate</label>
-                    <output for="investments-rate-input" id="investments-rate-output">7%</output>
-                    <input id="investments-rate-input" type="range" value="7" min="2" max="12" step="0.5">
-                    <small>Enter your after-inflation rate of return</small> <br>
-                    <small>Stock market inflation-adjusted average is about 7% </small> 
-                </div>
-                <div>
-                    <label>Asset Mix %</label>
-                    <p>
-                        Cash: <output id="cash-percent">-%</output> &nbsp; 
-                        Sav: <output id="savings-percent">-%</output> &nbsp;
-                        Inv: <output id="investment-percent">-%</output>
-                    </p>
-                    <small>Assets will rebalance annually to maintain this mix</small>
-                </div>
-                <br>
+                <form-section>
+                    <h5>Duration</h5>                
+                    <div>
+                        <label for="age-input">Current Age</label>
+                        <input id="age-input" type="number" value=40>
+                        <small>Enter your age in years</small> 
+                    </div>
+                    <div>
+                        <label for="retirement-age-input">Retirement Age</label>
+                        <input id="retirement-age-input" type="number" value=60>
+                        <small>Enter your desired retirement age in years</small>
+                    </div>
+                    <div>
+                        <label for="graph-end-age-input">Max Age</label>
+                        <input id="graph-end-age-input" type="number" value=80>
+                        <small>Enter the max age shown on the graph</small>
+                    </div>
+                    <br><br>
+                    
+                    <h5>Retirement Spending</h5>
+                    <div>
+                        <label for="withdrawal-rate-input">Annual Withdrawal Rate</label>
+                        <output for="withdrawal-rate-input" id="withdrawal-rate-output">4.0%</output>
+                        <input id="withdrawal-rate-input" type="range" value="4.0" min="3.0" max="6" step="0.5">
+                        <small>Enter your annual withdrawal rate in retirement</small> <br>
+                        <small>FIRE standard is 4%. Higher numbers have more risk.</small> 
+                    </div>
+                    <br><br>
 
-                <h5>Retirement Spending</h5>
-                <div>
-                    <label for="withdrawal-rate-input">Annual Withdrawal Rate</label>
-                    <output for="withdrawal-rate-input" id="withdrawal-rate-output">4.0%</output>
-                    <input id="withdrawal-rate-input" type="range" value="4.0" min="3.0" max="6" step="0.5">
-                    <small>Enter your annual withdrawal rate in retirement</small> <br>
-                    <small>FIRE standard is 4%. Higher numbers have more risk.</small> 
-                </div>
-                
-                <button id="calculate" type="submit">Calculate</button>
-                <button class="warning" type="submit">Reset</button>
+                    <button id="calculate" type="submit">Calculate</button>
+                    <button class="warning" type="submit">Reset</button>
+                </form-section>
             </form>
             <section style="flex: 1; min-width: 300px; box-shadow: var(--shadow-md);">
                 <h5>Results</h5> 

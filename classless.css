@@ -344,7 +344,11 @@ form, fieldset {
     border: 1px solid var(--border-color);
 }
 
-form > div {
+form-section {
+    flex: 1;
+}
+
+form-section > div {
     margin-bottom: calc( var(--spacing-base) * 1.5);
     /* border: .5px solid #ebebeb;     */
 }
